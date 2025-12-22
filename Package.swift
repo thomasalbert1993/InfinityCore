@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "CrewmateCore",
     platforms: [
-        .iOS(.v12),
+        .iOS(.v15),
         .macOS(.v11),
         .tvOS(.v12),
     ],
