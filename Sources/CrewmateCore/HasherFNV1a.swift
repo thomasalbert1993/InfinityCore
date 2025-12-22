@@ -15,7 +15,7 @@ public struct HasherFNV1a {
     /// Combines a sequence of bytes into the current hash.
     ///
     /// - Parameter sequence: A sequence of `UInt8` to combine into the hash.
-    mutating func combine<S: Sequence>(_ sequence: S) where S.Element == UInt8 {
+    public mutating func combine<S: Sequence>(_ sequence: S) where S.Element == UInt8 {
         for byte in sequence {
             hashValue ^= UInt(byte)
             hashValue &*= prime
@@ -23,7 +23,7 @@ public struct HasherFNV1a {
     }
     
     /// The current hash value.
-    var hash: UInt {
+    public var hash: UInt {
         hashValue
     }
     
