@@ -10,7 +10,7 @@ import Foundation
 /// A FNV-1a (Fowler–Noll–Vo) hash implementation.
 ///
 /// Can be used instead of Swift's `Hasher` for generating cross-platform consistent hashes.
-struct HasherFNV1a {
+public struct HasherFNV1a {
     
     /// Combines a sequence of bytes into the current hash.
     ///
@@ -36,14 +36,14 @@ extension HasherFNV1a {
     /// Combines a string into the FNV-1a hash.
     ///
     /// - Parameter string: The string to hash.
-    mutating func combine(_ string: String) {
+    public mutating func combine(_ string: String) {
         combine(string.utf8)
     }
     
     /// Combines a boolean into the FNV-1a hash.
     ///
     /// - Parameter bool: The boolean to hash.
-    mutating func combine(_ bool: Bool) {
+    public mutating func combine(_ bool: Bool) {
         combine(CollectionOfOne(bool ? 1 : 0))
     }
 }
@@ -53,7 +53,7 @@ extension FixedWidthInteger {
     /// Converts the integer into a `Data` instance.
     ///
     /// - Returns: A `Data` representation of the integer.
-    var data: Data {
+    public var data: Data {
         withUnsafeBytes(of: self) { Data($0) }
     }
 }
