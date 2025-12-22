@@ -16,7 +16,7 @@ import CommonCrypto
 ///
 /// - Important: AES-CBC requires a random, unique IV for each encryption operation.
 /// Never reuse the same IV with the same key for different messages.
-enum AESEncryption {
+public enum AESEncryption {
     
     /// Encrypts the given data using **AES (CBC mode)** with PKCS7 padding.
     ///
@@ -32,7 +32,7 @@ enum AESEncryption {
     ///    - 32 bytes → AES-256
     ///
     /// - Note: The IV must be **exactly 16 bytes** long.
-    static func encrypt(data: Data, key: Data, iv: Data) -> Data? {
+    public static func encrypt(data: Data, key: Data, iv: Data) -> Data? {
         guard isValidKeyLength(key.count), iv.count == ivLength else { return nil }
         return aesCrypt(data: data, operation: kCCEncrypt, key: key, iv: iv)
     }
@@ -46,7 +46,7 @@ enum AESEncryption {
     /// - Returns: The decrypted data, or `nil` if decryption fails.
     ///
     /// - Note: The IV and key must match those used for encryption.
-    static func decrypt(data: Data, key: Data, iv: Data) -> Data? {
+    public static func decrypt(data: Data, key: Data, iv: Data) -> Data? {
         guard data.count >= kCCBlockSizeAES128, isValidKeyLength(key.count), iv.count == ivLength else {
             return nil
         }
@@ -56,7 +56,7 @@ enum AESEncryption {
     /// The fixed AES Initialization Vector size (in bytes).
     ///
     /// AES-CBC always uses a **16-byte** IV.
-    static let ivLength = 16
+    public static let ivLength = 16
     
     /// Generates a cryptographically secure random initialization vector (IV).
     ///
@@ -64,7 +64,7 @@ enum AESEncryption {
     ///
     /// - Important: A unique IV should be used for each encryption.
     /// Store the IV alongside the ciphertext if decryption will be needed later.
-    static func generateRandomIV() -> Data? {
+    public static func generateRandomIV() -> Data? {
         var iv = [UInt8](repeating: 0, count: ivLength)
         let result = SecRandomCopyBytes(kSecRandomDefault, iv.count, &iv)
         return result == errSecSuccess ? Data(iv) : nil
@@ -79,7 +79,7 @@ enum AESEncryption {
         length == 16 || length == 24 || length == 32
     }
     
-    static private func aesCrypt(
+    private static func aesCrypt(
         data: Data,
         operation: Int,
         algorithm: Int = kCCAlgorithmAES,
