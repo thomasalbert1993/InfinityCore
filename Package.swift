@@ -16,9 +16,15 @@ let package = Package(
             targets: ["CrewmateCore"]
         ),
     ],
+    dependencies: [
+//        .package(url: "https://github.com/attaswift/BigInt.git", from: "6.1.0")
+    ],
     targets: [
         .target(
-            name: "CrewmateCore"
+            name: "CrewmateCore",
+            dependencies: [
+//                .product(name: "BigInt", package: "BigInt"),
+            ]
         ),
         .testTarget(
             name: "CrewmateCoreTests",
