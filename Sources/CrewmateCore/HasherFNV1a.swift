@@ -12,6 +12,8 @@ import Foundation
 /// Can be used instead of Swift's `Hasher` for generating cross-platform consistent hashes.
 public struct HasherFNV1a {
     
+    public init() { }
+    
     /// Combines a sequence of bytes into the current hash.
     ///
     /// - Parameter sequence: A sequence of `UInt8` to combine into the hash.
