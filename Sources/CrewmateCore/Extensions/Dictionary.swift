@@ -37,4 +37,13 @@ extension Dictionary {
         }
         return dict
     }
+    
+    /// Checks whether the dictionary contains a given key.
+    ///
+    /// - Parameter key: The key to match.
+    ///
+    /// - Returns: A boolean indicating whether the key exists.
+    public func contains(key: Key) -> Bool {
+        contains { $0.key == key }
+    }
 }
