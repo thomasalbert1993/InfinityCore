@@ -7,28 +7,23 @@ let package = Package(
     name: "CrewmateCore",
     platforms: [
         .iOS(.v15),
-        .macOS(.v11),
+        .macOS(.v13),
         .tvOS(.v12),
     ],
     products: [
-        .library(
-            name: "CrewmateCore",
-            targets: ["CrewmateCore"]
-        ),
+        .library(name: "CrewmateCore", targets: ["CrewmateCore"]),
     ],
     dependencies: [
-//        .package(url: "https://github.com/attaswift/BigInt.git", from: "6.1.0")
+        .package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0")
     ],
     targets: [
         .target(
             name: "CrewmateCore",
             dependencies: [
-//                .product(name: "BigInt", package: "BigInt"),
+                .product(name: "BigInt", package: "BigInt"),
             ]
         ),
-        .testTarget(
-            name: "CrewmateCoreTests",
-            dependencies: ["CrewmateCore"]
-        ),
+        .target(name: "CrewmateCoreData", dependencies: ["CrewmateCore"]),
+        .testTarget(name: "CrewmateCoreTests", dependencies: ["CrewmateCore"]),
     ]
 )
