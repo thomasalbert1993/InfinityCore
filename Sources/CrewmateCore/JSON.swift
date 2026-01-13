@@ -488,11 +488,19 @@ extension JSONObject {
     }
     
     public func object<T: JSONInitializable>(forKey key: String, type: T.Type) throws -> T {
-        try object(forKey: key).to(T.self)
+        try T(from: object(forKey: key))
     }
     
     public func object<T: JSONInitializable>(forKey key: String) throws -> T {
-        try object(forKey: key).to(T.self)
+        try T(from: object(forKey: key))
+    }
+    
+    public func object<T: LiteralInitializable>(forKey key: String, type: T.Type) throws -> T {
+        try T(string(forKey: key))
+    }
+    
+    public func object<T: LiteralInitializable>(forKey key: String) throws -> T {
+        try T(string(forKey: key))
     }
     
     public func objectArray(forKey key: String) throws -> [JSONObject] {
@@ -510,6 +518,18 @@ extension JSONObject {
     public func objectArray<T: JSONInitializable>(forKey key: String) throws -> [T] {
         try objectArray(forKey: key).map {
             try T(from: $0)
+        }
+    }
+    
+    public func objectArray<T: LiteralInitializable>(forKey key: String, type: T.Type) throws -> [T] {
+        try stringArray(forKey: key).map {
+            try T($0)
+        }
+    }
+    
+    public func objectArray<T: LiteralInitializable>(forKey key: String) throws -> [T] {
+        try stringArray(forKey: key).map {
+            try T($0)
         }
     }
     
@@ -581,6 +601,20 @@ extension JSONObject {
         try optionalObject(forKey: key)?.to(T.self)
     }
     
+    public func optionalObject<T: LiteralInitializable>(forKey key: String, type: T.Type) throws -> T? {
+        if let literal = try optionalString(forKey: key) {
+            return try T(literal)
+        }
+        return nil
+    }
+    
+    public func optionalObject<T: LiteralInitializable>(forKey key: String) throws -> T? {
+        if let literal = try optionalString(forKey: key) {
+            return try T(literal)
+        }
+        return nil
+    }
+    
     public func optionalObjectArray(forKey key: String) throws -> [JSONObject]? {
         try optionalValue(forKey: key)?.arrayValue(orThrow: "Invalid value for key '\(key)' (expected [JSONObject]?) in \(self)").map {
             try $0.objectValue(orThrow: "Invalid value for key '\(key)' (expected [JSONObject]?) in \(self)")
@@ -589,7 +623,25 @@ extension JSONObject {
     
     public func optionalObjectArray<T: JSONInitializable>(forKey key: String, type: T.Type) throws -> [T]? {
         try optionalObjectArray(forKey: key)?.map {
-            try $0.to(type.self)
+            try T(from: $0)
+        }
+    }
+    
+    public func optionalObjectArray<T: JSONInitializable>(forKey key: String) throws -> [T]? {
+        try optionalObjectArray(forKey: key)?.map {
+            try T(from: $0)
+        }
+    }
+    
+    public func optionalObjectArray<T: LiteralInitializable>(forKey key: String, type: T.Type) throws -> [T]? {
+        try optionalStringArray(forKey: key)?.map {
+            try T($0)
+        }
+    }
+    
+    public func optionalObjectArray<T: LiteralInitializable>(forKey key: String) throws -> [T]? {
+        try optionalStringArray(forKey: key)?.map {
+            try T($0)
         }
     }
     
