@@ -29,6 +29,11 @@ public struct HasherFNV1a {
         hashValue
     }
     
+    /// The Base62 encoded hash.
+    public var base62EncodedHash: String {
+        hash.data.base62EncodedString()
+    }
+    
     private var hashValue: UInt = 14_695_981_039_346_656_037
     private let prime: UInt = 1_099_511_628_211
 }
