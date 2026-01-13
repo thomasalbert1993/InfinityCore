@@ -11,6 +11,58 @@ import Testing
 
 struct ArrayTests {
     
+    
+    //------------------------
+    // MARK: Array[indexSet:]
+    //------------------------
+    
+    @Test("Test elements are returned in IndexSet order") func testElementsAreReturnedInIndexSetOrder() {
+        
+        let array = ["a", "b", "c", "d", "e"]
+        let indexSet = IndexSet([0, 2, 4])
+
+        let result = array[indexSet]
+
+        #expect(result == ["a", "c", "e"])
+    }
+
+    @Test("Test ascending order is preserved even if IndexSet is created unordered") func testAscendingOrderIsPreservedEvenIfIndexSetIsCreatedUnordered() {
+        
+        let array = [10, 20, 30, 40, 50]
+        var indexSet = IndexSet()
+        indexSet.insert(3)
+        indexSet.insert(1)
+
+        let result = array[indexSet]
+
+        #expect(result == [20, 40])
+    }
+
+    @Test("Test empty array is returned for empty IndexSet") func testEmptyArrayIsReturnedForEmptyIndexSet() {
+        
+        let array = ["x", "y", "z"]
+        let indexSet = IndexSet()
+
+        let result = array[indexSet]
+
+        #expect(result.isEmpty)
+    }
+
+    @Test("Test with single index") func testWithSingleIndex() {
+        
+        let array = ["apple", "banana", "cherry"]
+        let indexSet = IndexSet(integer: 1)
+
+        let result = array[indexSet]
+
+        #expect(result == ["banana"])
+    }
+    
+    
+    //------------------------
+    // MARK: Array.remove(_:)
+    //------------------------
+    
     @Test("Test remove single element") func testRemoveSingle() {
         
         let numbers = [1, 2, 3, 2, 4]
@@ -124,9 +176,9 @@ struct ArrayTests {
     }
     
     
-    //-----------------------
-    // MARK: Distinct Values
-    //-----------------------
+    //------------------------------
+    // MARK: Array.distinctValues()
+    //------------------------------
     
     @Test("Test distinctValues removes duplicates and preserves order") func testDistinctValuesRemovesDuplicates() {
         
@@ -180,6 +232,11 @@ struct ArrayTests {
 
         #expect(r1 == r2)
     }
+    
+    
+    //---------------------------------
+    // MARK: Array.distinctValues(by:)
+    //---------------------------------
     
     @Test("distinctValues(by:) is deterministic") func testDistinctValuesByKeyDeterministic() {
         

@@ -7,6 +7,13 @@
 
 import Foundation
 
+extension Array {
+    
+    public subscript (indexSet: IndexSet) -> [Element] {
+        indexSet.map { self[$0] }
+    }
+}
+
 extension Array where Element: Equatable {
     
     /// Removes an element.
