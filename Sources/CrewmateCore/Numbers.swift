@@ -1,9 +1,9 @@
-//----------------------------------------------------
-//  Double.swift
 //
-//  Created by Thomas ALBERT on 20/12/2025.
-//  All rights reserved.
-//----------------------------------------------------
+//  Numbers.swift
+//  CrewmateCore
+//
+//  Created by Thomas ALBERT on 13/01/2026.
+//
 
 import Foundation
 
@@ -22,5 +22,13 @@ extension Double {
     /// Indicates whether a `Double` has a fractional part of not.
     public var hasFractionalPart: Bool {
         truncatingRemainder(dividingBy: 1) != 0
+    }
+}
+
+extension Sequence where Element: AdditiveArithmetic {
+
+    /// Computes the sum of the elements in the sequence.
+    public func sum() -> Element {
+        reduce(.zero, +)
     }
 }
