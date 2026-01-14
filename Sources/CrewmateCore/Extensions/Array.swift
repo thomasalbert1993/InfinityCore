@@ -12,6 +12,30 @@ extension Array {
     public subscript (indexSet: IndexSet) -> [Element] {
         indexSet.map { self[$0] }
     }
+    
+    /// Returns some random elements of the collection.
+    ///
+    /// - Parameter count: The range of elements to pick.
+    /// - Parameter preserveOrder: Indicates whether picked elements should be returned
+    /// by preserving their ordering in the collection.
+    ///
+    /// - Returns: The picked random elements.
+    public func randomElements(count: ClosedRange<Int>? = nil, preserveOrder: Bool = false) -> Self {
+        
+        let count = Int.random(in: count ?? 1...self.count)
+        
+        var pickedIndexes = IndexSet()
+        var allIndexes = IndexSet(integersIn: 0..<self.count)
+        
+        for i in 0..<count {
+            let index = allIndexes.randomElement()!
+            allIndexes.remove(index)
+            pickedIndexes.insert(index)
+        }
+        
+        let items = self[pickedIndexes]
+        return preserveOrder ? items : items.shuffled()
+    }
 }
 
 extension Array where Element: Equatable {

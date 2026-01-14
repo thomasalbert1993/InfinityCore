@@ -59,6 +59,87 @@ struct ArrayTests {
     }
     
     
+    //--------------------------------------------------
+    // MARK: Array.randomElements(count:preserveOrder:)
+    //--------------------------------------------------
+    
+    let array = Array(0..<20)
+    
+    @Test("Default count picks between 1 and collection count") func defaultCountRange() {
+        
+        for _ in 0..<100 {
+            let result = array.randomElements()
+            #expect(result.count >= 1)
+            #expect(result.count <= array.count)
+        }
+    }
+    
+    @Test("Count range is respected") func countRangeIsRespected() {
+        
+        for _ in 0..<100 {
+            let result = array.randomElements(count: 5...10)
+            #expect(result.count >= 5)
+            #expect(result.count <= 10)
+        }
+    }
+    
+    @Test("Returned elements are subset of original collection") func elementsAreFromSource() {
+        
+        for _ in 0..<100 {
+            let result = array.randomElements()
+            #expect(result.allSatisfy { array.contains($0) })
+        }
+    }
+    
+    @Test("Returned elements are unique") func noDuplicates() {
+        
+        for _ in 0..<100 {
+            let result = array.randomElements()
+            #expect(Set(result).count == result.count)
+        }
+    }
+    
+    @Test("PreserveOrder keeps relative ordering") func preserveOrderKeepsOrder() {
+        
+        for _ in 0..<100 {
+            let result = array.randomElements(preserveOrder: true)
+
+            let indexes = result.map { array.firstIndex(of: $0)! }
+            #expect(indexes == indexes.sorted())
+        }
+    }
+    
+    @Test("Without preserveOrder order may differ") func shuffledOrderCanDiffer() {
+        var orderChanged = false
+
+        for _ in 0..<200 {
+            let result = array.randomElements(count: 10...10, preserveOrder: false)
+            let indexes = result.map { array.firstIndex(of: $0)! }
+            if indexes != indexes.sorted() {
+                orderChanged = true
+                break
+            }
+        }
+
+        #expect(orderChanged)
+    }
+    
+    @Test("Full count returns all elements") func fullCountReturnsAllElements() {
+        
+        let result = array.randomElements(count: array.count...array.count)
+        #expect(Set(result) == Set(array))
+    }
+    
+    @Test("Single element range returns exactly one element") func singleElement() {
+        
+        for _ in 0..<100 {
+            let result = array.randomElements(count: 1...1)
+            #expect(result.count == 1)
+            #expect(array.contains(result[0]))
+        }
+    }
+    
+    
     //------------------------
     // MARK: Array.remove(_:)
     //------------------------
