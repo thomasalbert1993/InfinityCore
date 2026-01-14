@@ -86,4 +86,25 @@ struct NumbersTests {
         let values = [-1, 2, -3, 4]
         #expect(values.sum() == 2)
     }
+    
+    
+    //-----------------------
+    // MAKR: NSNumber.isBool
+    //-----------------------
+    
+    @Test("isBool returns true only for real booleans") func isBoolReturnsTrueOnlyForRealBooleans() {
+        
+        
+        let value1: NSNumber = false
+        let value2: NSNumber = true
+        let value3: NSNumber = 0
+        let value4: NSNumber = 1
+        let value5: NSNumber = 3.14
+        
+        #expect(value1.isBool == true)
+        #expect(value2.isBool == true)
+        #expect(value3.isBool == false)
+        #expect(value4.isBool == false)
+        #expect(value5.isBool == false)
+    }
 }
