@@ -36,7 +36,7 @@ extension Sequence where Element: AdditiveArithmetic {
 extension NSNumber {
     
     /// Indicates whether this number represents a `Bool` value.
-    var isBool: Bool {
+    public var isBool: Bool {
         CFGetTypeID(self) == CFBooleanGetTypeID()
     }
 }
