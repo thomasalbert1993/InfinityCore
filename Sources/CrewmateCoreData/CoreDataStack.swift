@@ -18,9 +18,6 @@ import CrewmateCore
 ///
 public final class CoreDataStack: @unchecked Sendable {
     
-    /// All CoreData stacks.
-    nonisolated(unsafe) public static var all = [CoreDataStack]()
-    
     /// The store container URL.
     public let containerURL: URL
     
@@ -48,6 +45,7 @@ public final class CoreDataStack: @unchecked Sendable {
             return
         }
         
+        Self.allStacks.append(self)
         self.testingMode = testingMode
         setupContainer(preSeededStoreURL: preSeededStoreURL)
         
@@ -80,7 +78,7 @@ public final class CoreDataStack: @unchecked Sendable {
     ///
     /// - Returns: The corresponding `CoreDataStack`.
     public static func stack(for context: NSManagedObjectContext) -> CoreDataStack {
-        all.first {
+        allStacks.first {
             $0.persistentContainer.persistentStoreCoordinator == context.persistentStoreCoordinator
         }!
     }
@@ -91,7 +89,7 @@ public final class CoreDataStack: @unchecked Sendable {
     ///
     /// - Returns: The corresponding stack.
     public static func stack(for objectType: CoreDataObject.Type) -> CoreDataStack {
-        let stack = all.first {
+        let stack = allStacks.first {
             $0.persistentContainer.managedObjectModel.entities.contains { entity in
                 entity.name == objectType.entityName
             }
@@ -108,7 +106,7 @@ public final class CoreDataStack: @unchecked Sendable {
     ///
     /// - Returns: The corresponding stack.
     public static func stack<T: CoreDataObject>(for object: T) -> CoreDataStack {
-        let stack = all.first {
+        let stack = allStacks.first {
             $0.persistentContainer.managedObjectModel.entities.contains { entity in
                 entity.name == object.entity.name
             }
@@ -289,6 +287,8 @@ public final class CoreDataStack: @unchecked Sendable {
     //---------------
     // MARK: Private
     //---------------
+    
+    nonisolated(unsafe) private static var allStacks = [CoreDataStack]()
     
     private let modelName: String
     private var testingMode: Bool
