@@ -12,6 +12,7 @@ let package = Package(
     ],
     products: [
         .library(name: "CrewmateCore", targets: ["CrewmateCore"]),
+        .library(name: "CrewmateCoreData", targets: ["CrewmateCoreData"]),
     ],
     dependencies: [
         .package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0")
