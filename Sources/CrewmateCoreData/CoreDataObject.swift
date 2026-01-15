@@ -151,7 +151,7 @@ open class CoreDataObject: NSManagedObject, Identifiable {
     // MARK: CoreData properties
     //---------------------------
     
-    @NSManaged internal var cd_id: String
+    @NSManaged public var cd_id: String
     
     
     //---------------
