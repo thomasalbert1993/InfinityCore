@@ -258,11 +258,6 @@ public final class CoreDataStack: @unchecked Sendable {
         setupContainer()
     }
     
-//    /// Deleting the whole stores container.
-//    public static func deleteStoresContainer() {
-//        try? FileManager.default.removeItem(at: storesContainerURL)
-//    }
-    
     
     //-----------------------
     // MARK: Exporting Store
@@ -319,9 +314,9 @@ public final class CoreDataStack: @unchecked Sendable {
         let container = NSPersistentContainer(name: modelName)
         
         let storeDescription = container.persistentStoreDescriptions.first!
-        if isIndexableOnSpotlight && !testingMode {
+//        if isIndexableOnSpotlight && !testingMode {
             storeDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
-        }
+//        }
         if testingMode {
             storeDescription.type = NSInMemoryStoreType
         }
