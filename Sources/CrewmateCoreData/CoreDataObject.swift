@@ -20,9 +20,6 @@ public enum CoreDataError: DebuggableError {
     case contextIsNil(CoreDataObject)
     case mustBeInMainContext(CoreDataObject)
     
-    case mustNotBePlaceholderObject(CoreDataObject)
-    case mustBePlaceholderObject(CoreDataObject)
-    
     case instanceNotFound(type: CoreDataObject.Type, predicates: [String]) // predicates are given as String as this is a generic struct
     case instanceAlreadyExists(type: CoreDataObject.Type, predicates: [String]) // predicates are given as String as this is a generic struct
     case instanceNotFound(type: CoreDataObject.Type, id: String)
@@ -69,7 +66,7 @@ open class CoreDataObject: NSManagedObject, Identifiable {
     
     /// The ID prefix for this object type.
     /// Override this var to provide a custom prefix (like `usr_` for example).
-    public class var idPrefix: String {
+    open class var idPrefix: String {
         ""
     }
     
@@ -77,7 +74,7 @@ open class CoreDataObject: NSManagedObject, Identifiable {
     // MARK: - Functions to override
     
     /// Function called when the object has been created.
-    public func didCreate() {
+    open func didCreate() {
     }
     
     
@@ -89,7 +86,7 @@ open class CoreDataObject: NSManagedObject, Identifiable {
     ///
     /// Override this function to clear any temporary (ie. non-persisted) cache
     /// to free up memory.
-    public func clearCaches() {
+    open func clearCaches() {
     }
     
     
@@ -106,7 +103,7 @@ open class CoreDataObject: NSManagedObject, Identifiable {
     // MARK: NSManagedObject
     //-----------------------
     
-    override public func didTurnIntoFault() {
+    override open func didTurnIntoFault() {
         super.didTurnIntoFault()
         
         clearCaches()
@@ -117,7 +114,7 @@ open class CoreDataObject: NSManagedObject, Identifiable {
     // MARK: NSObject
     //----------------
     
-    override public var description: String {
+    override open var description: String {
         DebugDescription(for: self).description
     }
     
