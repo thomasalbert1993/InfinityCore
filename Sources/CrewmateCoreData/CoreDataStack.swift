@@ -21,8 +21,12 @@ public final class CoreDataStack: @unchecked Sendable {
     /// All CoreData stacks.
     nonisolated(unsafe) public static var all = [CoreDataStack]()
     
-    public init(modelName: String, spotlightDomainIdentifier: String? = nil, backgroundQueue: OperationQueue? = nil) {
+    /// The store container URL.
+    public let containerURL: URL
+    
+    public init(modelName: String, containerURL: URL, spotlightDomainIdentifier: String? = nil, backgroundQueue: OperationQueue? = nil) {
         self.modelName = modelName
+        self.containerURL = containerURL
         testingMode = false
         self.spotlightDomainIdentifier = spotlightDomainIdentifier
         self.backgroundQueue = backgroundQueue ?? Self.newBackgroundQueue()
@@ -254,10 +258,10 @@ public final class CoreDataStack: @unchecked Sendable {
         setupContainer()
     }
     
-    /// Deleting the whole stores container.
-    public static func deleteStoresContainer() {
-        try? FileManager.default.removeItem(at: storesContainerURL)
-    }
+//    /// Deleting the whole stores container.
+//    public static func deleteStoresContainer() {
+//        try? FileManager.default.removeItem(at: storesContainerURL)
+//    }
     
     
     //-----------------------
@@ -298,19 +302,12 @@ public final class CoreDataStack: @unchecked Sendable {
     
     private let mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
     
-    private static let sharedBackgroundQueue = newBackgroundQueue()
     private let backgroundQueue: OperationQueue
     
     private static func newBackgroundQueue() -> OperationQueue {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
         return queue
-    }
-    
-    private static var storesContainerURL: URL {
-        let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appending(component: "coredata")
-        try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
-        return url
     }
     
     private func setupContainer(preSeededStoreURL: URL? = nil) {
@@ -329,7 +326,7 @@ public final class CoreDataStack: @unchecked Sendable {
             storeDescription.type = NSInMemoryStoreType
         }
         
-        let storeURL = Self.storesContainerURL.appending(component: modelName + ".sqlite")
+        let storeURL = containerURL.appending(component: modelName + ".sqlite")
         
         if !FileManager.default.fileExists(atPath: storeURL.path(percentEncoded: false)),
            let preSeededStoreURL, FileManager.default.fileExists(atPath: preSeededStoreURL.path(percentEncoded: false)) {
