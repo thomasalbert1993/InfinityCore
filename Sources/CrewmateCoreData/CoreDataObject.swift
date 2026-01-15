@@ -33,7 +33,7 @@ public enum CoreDataError: DebuggableError {
 ///
 /// - Important: All CoreData properties must have `cd_` prefix.
 ///
-public class CoreDataObject: NSManagedObject, Identifiable/*, Comparable*/ {
+open class CoreDataObject: NSManagedObject, Identifiable {
     
     /// The corresponding CoreData entity name.
     public static var entityName: String {
@@ -80,22 +80,6 @@ public class CoreDataObject: NSManagedObject, Identifiable/*, Comparable*/ {
     public func didCreate() {
     }
     
-//    /// Comparing the instance with another one.
-//    ///
-//    /// - Parameter object: The object to compare
-//    /// - Returns: True if `self` is before than `object`
-//    ///
-//    /// - Note: Override this method for providing custom sorting for a given subclass
-//    public func compare(with object: CoreDataObject) -> Bool {
-//        
-//        if let left = self as? Orderable,
-//           let right = object as? Orderable {
-//            return left.order < right.order
-//        }
-//        
-//        return true
-//    }
-    
     
     //------------------------
     // MARK: Transient Caches
@@ -113,7 +97,7 @@ public class CoreDataObject: NSManagedObject, Identifiable/*, Comparable*/ {
     // MARK: Initializer
     //-------------------
     
-    required override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+    required public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
         super.init(entity: entity, insertInto: context)
     }
     
@@ -164,15 +148,6 @@ public class CoreDataObject: NSManagedObject, Identifiable/*, Comparable*/ {
         cd_id = id
         _id = id
     }
-    
-    
-//    //--------------------
-//    // MARK: <Comparable>
-//    //--------------------
-//    
-//    public static func < (lhs: CoreDataObject, rhs: CoreDataObject) -> Bool {
-//        lhs.compare(with: rhs)
-//    }
     
     
     //---------------------------
