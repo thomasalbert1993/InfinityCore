@@ -55,9 +55,9 @@ extension UIColor {
         self.init(white: CGFloat(gray) / 255, alpha: 1)
     }
     
-    /// Creates an `UIColor` from a 24-bit hex value.
+    /// Creates an `UIColor` from a 24-bit hex `Int` value.
     ///
-    /// - Parameter hex: The 24-bit RGB value (example: `0x1100F2`).
+    /// - Parameter hex: The 24-bit RGB hexadecimal value (example: `0x1100F2`).
     public convenience init(hex: Int) {
         self.init(r: (hex & 0xff0000) >> 16, g: (hex & 0x00ff00) >> 8, b: (hex & 0x0000ff))
     }
@@ -65,13 +65,13 @@ extension UIColor {
     /// Creates an `UIColor` from a 24-bit hex `String` value.
     ///
     /// - Parameter hexString: The 24-bit RGB hexadecimal value (exemple: `1100F2`).
-    public convenience init?(hexString: String) {
+    public convenience init?(hex: String) {
         let hexSet = CharacterSet(charactersIn: "0123456789ABCDEFabcdef")
-        guard hexString.count == 6, hexString.unicodeScalars.allSatisfy(hexSet.contains) else {
+        guard hex.count == 6, hex.unicodeScalars.allSatisfy(hexSet.contains) else {
             return nil
         }
         var colorHex: UInt64 = 0
-        let scanner = Scanner(string: hexString.uppercased())
+        let scanner = Scanner(string: hex.uppercased())
         scanner.scanHexInt64(&colorHex)
         self.init(hex: Int(colorHex))
     }

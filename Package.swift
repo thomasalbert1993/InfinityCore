@@ -28,5 +28,6 @@ let package = Package(
         .target(name: "CrewmateCoreData", dependencies: ["CrewmateCore"]),
         .target(name: "CrewmateCoreUI", dependencies: ["CrewmateCore"]),
         .testTarget(name: "CrewmateCoreTests", dependencies: ["CrewmateCore"]),
+        .testTarget(name: "CrewmateCoreUITests", dependencies: ["CrewmateCoreUI"]),
     ]
 )
