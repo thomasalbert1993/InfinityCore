@@ -13,7 +13,7 @@ let package = Package(
     products: [
         .library(name: "CrewmateCore", targets: ["CrewmateCore"]),
         .library(name: "CrewmateCoreData", targets: ["CrewmateCoreData"]),
-        .library(name: "CrewmateUI", targets: ["CrewmateUI"]),
+        .library(name: "CrewmateCoreUI", targets: ["CrewmateCoreUI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0")
@@ -26,7 +26,7 @@ let package = Package(
             ]
         ),
         .target(name: "CrewmateCoreData", dependencies: ["CrewmateCore"]),
-        .target(name: "CrewmateUI", dependencies: ["CrewmateCore"]),
+        .target(name: "CrewmateCoreUI", dependencies: ["CrewmateCore"]),
         .testTarget(name: "CrewmateCoreTests", dependencies: ["CrewmateCore"]),
     ]
 )
