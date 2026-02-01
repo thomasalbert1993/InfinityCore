@@ -28,6 +28,7 @@ public struct AsyncTimeoutError: Error {
 ///
 /// - Throws: Throws an `AsyncTimeoutError` is task did not complete before the timeout.
 @MainActor
+@discardableResult
 public func withTimeout<T: Sendable>(_ timeout: TimeInterval = 2.0, task: @MainActor @escaping () async throws -> T) async throws -> T {
     try await withThrowingTaskGroup(of: T.self) { group in
         
@@ -55,7 +56,7 @@ public func withTimeout<T: Sendable>(_ timeout: TimeInterval = 2.0, task: @MainA
 /// - Returns: The result of the executed completion.
 ///
 /// - Throws: Throws an `AsyncTimeoutError` is task did not complete before the timeout.
-@MainActor
+@MainActor @discardableResult
 public func awaitCompletion<T: Sendable>(timeout: TimeInterval = 2.0, _ body: @MainActor @escaping (@escaping (T) -> Void) -> Void) async throws -> T {
     try await withCheckedThrowingContinuation { continuation in
         var resumed = false
