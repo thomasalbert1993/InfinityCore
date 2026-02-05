@@ -9,6 +9,18 @@ import Foundation
 
 extension Date {
     
+    /// The equivalent date offsetted by 100 nanosecond in the past.
+    /// You can use it for excluding date from closed ranges.
+    var slightlyBefore: Date {
+        addingTimeInterval(-1e-7)
+    }
+    
+    /// The equivalent date offsetted by 100 nanosecond in the future.
+    /// You can use it for excluding date from closed ranges.
+    var slightlyAfter: Date {
+        addingTimeInterval(1e-7)
+    }
+    
     /// Gets the date components (year/month/day).
     ///
     /// - Parameter includingTime: A boolean indicating wheter time components (hours/minutes/seconds) should be included.
