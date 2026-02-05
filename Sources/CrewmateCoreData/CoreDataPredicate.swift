@@ -69,7 +69,7 @@ extension CoreDataPredicate where Element: SoftDeletable {
     
     /// Predicate for matching soft deleted instances.
     public static func deleted(_ deleted: Bool) -> Self {
-        .init(format: "%K == %d", deleted, Element.softDeletedAttributeName, includeSoftDeleted: deleted)
+        .init(format: "%K == %d", Element.softDeletedAttributeName, deleted, includeSoftDeleted: deleted)
     }
 }
 
