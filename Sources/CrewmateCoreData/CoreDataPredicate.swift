@@ -71,6 +71,11 @@ extension CoreDataPredicate where Element: SoftDeletable {
     public static func deleted(_ deleted: Bool) -> Self {
         .init(format: "%K == %d", Element.softDeletedAttributeName, deleted, includeSoftDeleted: deleted)
     }
+    
+    /// Predicate that include soft deleted instances.
+    public static func withDeleted() -> Self {
+        .init(NSPredicate(value: true), includeSoftDeleted: true)
+    }
 }
 
 extension CoreDataPredicate: CustomStringConvertible {
