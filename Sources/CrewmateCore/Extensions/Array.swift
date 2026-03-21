@@ -27,7 +27,7 @@ extension Array {
         var pickedIndexes = IndexSet()
         var allIndexes = IndexSet(integersIn: 0..<self.count)
         
-        for i in 0..<count {
+        for _ in 0..<count {
             let index = allIndexes.randomElement()!
             allIndexes.remove(index)
             pickedIndexes.insert(index)

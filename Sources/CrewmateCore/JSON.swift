@@ -422,7 +422,7 @@ extension JSONObject {
     ///
     /// - Returns: The serialized object as `String`.
     public func serialized(prettyPrinted: Bool = false) throws -> String {
-        let data = try JSONSerialization.data(withJSONObject: self, options: prettyPrinted ? .prettyPrinted : [])
+        let data = try JSONSerialization.data(withJSONObject: rawValue, options: prettyPrinted ? .prettyPrinted : [])
         guard let string = String(data: data, encoding: .utf8) else {
             throw "Unable to serialize JSONObject: \(self)"
         }
