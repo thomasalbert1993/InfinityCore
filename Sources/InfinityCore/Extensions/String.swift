@@ -9,6 +9,11 @@ import Foundation
 
 extension String {
     
+    /// Returns `nil` when string is empty.
+    public var emptyAsNil: String? {
+        isEmpty ? nil : self
+    }
+    
     /// Trims whitespaces from string.
     public func trimmed() -> String {
         trimmingCharacters(in: .whitespacesAndNewlines)

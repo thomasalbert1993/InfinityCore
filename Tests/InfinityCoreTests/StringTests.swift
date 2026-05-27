@@ -12,6 +12,35 @@ import Testing
 struct StringTests {
     
     
+    //-------------------------
+    // MARK: String.emptyAsNil
+    //-------------------------
+    
+    @Test("emptyAsNil returns nil for empty string") func testEmptyAsNilEmpty() {
+        
+        #expect("".emptyAsNil == nil)
+    }
+    
+    @Test("emptyAsNil returns self for non-empty string") func testEmptyAsNilNonEmpty() {
+        
+        let input = "Hello"
+        
+        #expect(input.emptyAsNil == "Hello")
+    }
+    
+    @Test("emptyAsNil returns self for whitespace-only string") func testEmptyAsNilWhitespace() {
+        
+        let input = "   "
+        
+        #expect(input.emptyAsNil == "   ")
+    }
+    
+    @Test("emptyAsNil returns self for single character") func testEmptyAsNilSingleChar() {
+        
+        #expect("a".emptyAsNil == "a")
+    }
+    
+    
     //----------------------------
     // MARK: Trimming Whitespaces
     //----------------------------
