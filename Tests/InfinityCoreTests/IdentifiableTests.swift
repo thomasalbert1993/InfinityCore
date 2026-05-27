@@ -17,34 +17,34 @@ struct IdentifiableTests {
         #expect(ids == [1, 2, 3, 2])
     }
     
-    @Test("Test first(withID:) returns first matching element") func testFirstWithID() {
+    @Test("first(id:) returns first matching element") func testFirstWithID() {
         
-        let item = testItems.first(withID: 2)
+        let item = testItems.first(id: 2)
         #expect(item == TestItem(id: 2, name: "Bob"))
         
-        let missing = testItems.first(withID: 99)
+        let missing = testItems.first(id: 99)
         #expect(missing == nil)
     }
     
-    @Test("Test firstIndex(withID:) returns correct index") func testFirstIndexWithID() {
+    @Test("firstIndex(id:) returns correct index") func testFirstIndexWithID() {
         
-        let index = testItems.firstIndex(withID: 2)
+        let index = testItems.firstIndex(id: 2)
         #expect(index == 1)
         
-        let missingIndex = testItems.firstIndex(withID: 99)
+        let missingIndex = testItems.firstIndex(id: 99)
         #expect(missingIndex == nil)
     }
     
-    @Test("Test containsID(_:) works correctly") func testContainsID() {
+    @Test("contains(id:) works correctly") func testContainsID() {
         
-        #expect(testItems.containsID(2) == true)
-        #expect(testItems.containsID(99) == false)
+        #expect(testItems.contains(id: 2) == true)
+        #expect(testItems.contains(id: 99) == false)
     }
     
-    @Test("Test removeAll(withID:) removes all matching elements") func testRemoveAllWithID() {
+    @Test("remove(id:) removes all matching elements") func testRemoveAllWithID() {
         
         var mutableUsers = testItems
-        mutableUsers.removeAll(withID: 2)
+        mutableUsers.remove(id: 2)
         
         #expect(mutableUsers == [
             TestItem(id: 1, name: "Alice"),
@@ -52,10 +52,10 @@ struct IdentifiableTests {
         ])
     }
     
-    @Test("Test removeAll(withID:) does nothing if no match") func testRemoveAllWithIDNoMatch() {
+    @Test("remove(id:) does nothing if no match") func testRemoveAllWithIDNoMatch() {
         
         var mutableUsers = testItems
-        mutableUsers.removeAll(withID: 99)
+        mutableUsers.remove(id: 99)
         
         #expect(mutableUsers == testItems)
     }
