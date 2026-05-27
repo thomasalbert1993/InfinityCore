@@ -61,6 +61,16 @@ public struct PDFLayout: Sendable {
         .init(origin: .zero, size: format.size(for: orientation))
     }
     
+    public init(
+        format: Format,
+        orientation: Orientation,
+        margins: UIEdgeInsets
+    ) {
+        self.format = format
+        self.orientation = orientation
+        self.margins = margins
+    }
+    
     /// The pages content frame (in dots).
     public var contentFrame: CGRect {
         let size = format.size(for: orientation)

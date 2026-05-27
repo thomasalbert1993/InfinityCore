@@ -33,6 +33,14 @@ public struct PDFDrawableElement {
         _ offset: CGVector
     ) -> Void
     
+    public init(
+        relativeFrame: CGRect,
+        renderer: @escaping (_ context: CGContext, _ offset: CGVector) -> Void
+    ) {
+        self.relativeFrame = relativeFrame
+        self.renderer = renderer
+    }
+    
     /// Drawing content at a given point.
     ///
     /// - Parameter origin: The absolute origin, already offsetted by `relatedFrame` origin.

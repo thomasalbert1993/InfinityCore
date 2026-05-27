@@ -25,15 +25,27 @@ public struct PDFBlock {
     public var elements: [PDFDrawableElement]
     
     /// The block own margins.
-    public var margins: UIEdgeInsets = .zero
+    public var margins: UIEdgeInsets
     
     /// Indicates wether the top margin should be cleared when the block is drawn
     /// at the top of a column/section.
-    public var clearsTopMarginWhenIsTopBlock = false
+    public var clearsTopMarginWhenIsTopBlock: Bool
     
     /// Indicates wether the block should be drawn on a new column/page
     /// if it's the last one fitting space.
-    public var prefersNotBeingLastBlock = false
+    public var prefersNotBeingLastBlock: Bool
+    
+    public init(
+        elements: [PDFDrawableElement],
+        margins: UIEdgeInsets = .zero,
+        clearsTopMarginWhenIsTopBlock: Bool = false,
+        prefersNotBeingLastBlock: Bool = false
+    ) {
+        self.elements = elements
+        self.margins = margins
+        self.clearsTopMarginWhenIsTopBlock = clearsTopMarginWhenIsTopBlock
+        self.prefersNotBeingLastBlock = prefersNotBeingLastBlock
+    }
     
     /// Getting the block rendering size, including margins.
     ///

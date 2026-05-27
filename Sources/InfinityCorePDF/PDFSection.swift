@@ -31,12 +31,24 @@ public struct PDFSection {
     public var template: PDFTemplate
     
     /// The number of columns.
-    public var columns: Int = 1
+    public var columns: Int
     /// The columns spacing.
-    public var columnsSpacing: CGFloat = .centimeters(1)
+    public var columnsSpacing: CGFloat
     
     /// The section position.
-    public var position: Position = .automatic(topMargin: 0)
+    public var position: Position
+    
+    public init(
+        template: PDFTemplate,
+        columns: Int = 1,
+        columnsSpacing: CGFloat = .centimeters(1),
+        position: Position = .automatic(topMargin: 0)
+    ) {
+        self.template = template
+        self.columns = columns
+        self.columnsSpacing = columnsSpacing
+        self.position = position
+    }
 }
 
 #endif
