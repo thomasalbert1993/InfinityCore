@@ -41,7 +41,12 @@ struct IdentifiableTests {
         #expect(testItems.contains(id: 99) == false)
     }
     
-    @Test("remove(id:) removes all matching elements") func testRemoveAllWithID() {
+    
+    //-------------------------
+    // MARK: Array.remove(id:)
+    //-------------------------
+    
+    @Test("Array.remove(id:) removes all matching elements") func testArrayRemoveID() {
         
         var mutableUsers = testItems
         mutableUsers.remove(id: 2)
@@ -52,7 +57,7 @@ struct IdentifiableTests {
         ])
     }
     
-    @Test("remove(id:) does nothing if no match") func testRemoveAllWithIDNoMatch() {
+    @Test("Array.remove(id:) does nothing if no match") func testArrayRemoveIDNoMatch() {
         
         var mutableUsers = testItems
         mutableUsers.remove(id: 99)
@@ -61,11 +66,35 @@ struct IdentifiableTests {
     }
     
     
+    //-----------------------
+    // MARK: Set.remove(id:)
+    //-----------------------
+    
+    @Test("Set.remove(id:) removes any matching element") func testSetRemoveID() {
+        
+        var mutableUsers = Set(testItems)
+        mutableUsers.remove(id: 2)
+        
+        #expect(mutableUsers == [
+            TestItem(id: 1, name: "Alice"),
+            TestItem(id: 3, name: "Charlie")
+        ])
+    }
+    
+    @Test("Set.remove(id:) does nothing if no match") func testSetRemoveIDNoMatch() {
+        
+        var mutableUsers = Set(testItems)
+        mutableUsers.remove(id: 99)
+        
+        #expect(mutableUsers == Set(testItems))
+    }
+    
+    
     //---------------
     // MARK: Helpers
     //---------------
     
-    private struct TestItem: Identifiable, Equatable {
+    private struct TestItem: Identifiable, Hashable {
         let id: Int
         let name: String
     }

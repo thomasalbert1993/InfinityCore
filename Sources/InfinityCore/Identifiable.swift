@@ -51,3 +51,16 @@ extension Array where Element: Identifiable {
         removeAll { $0.id == id }
     }
 }
+
+extension Set where Element: Identifiable {
+    
+    /// Remove any element matching a given identifier.
+    ///
+    /// - Parameter id: The identifier to match.
+    public mutating func remove(id: Element.ID) {
+        
+        while let index = firstIndex(where: { $0.id == id }) {
+            remove(at: index)
+        }
+    }
+}
