@@ -13,6 +13,7 @@ let package = Package(
     products: [
         .library(name: "InfinityCore", targets: ["InfinityCore"]),
         .library(name: "InfinityCoreData", targets: ["InfinityCoreData"]),
+        .library(name: "InfinityCorePDF", targets: ["InfinityCorePDF"]),
         .library(name: "InfinityCoreUI", targets: ["InfinityCoreUI"]),
     ],
     dependencies: [
@@ -26,6 +27,7 @@ let package = Package(
             ]
         ),
         .target(name: "InfinityCoreData", dependencies: ["InfinityCore"]),
+        .target(name: "InfinityCorePDF", dependencies: ["InfinityCore"]),
         .target(name: "InfinityCoreUI", dependencies: ["InfinityCore"]),
         .testTarget(name: "InfinityCoreTests", dependencies: ["InfinityCore"]),
         .testTarget(name: "InfinityCoreUITests", dependencies: ["InfinityCoreUI"]),
