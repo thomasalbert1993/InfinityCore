@@ -4,30 +4,30 @@
 import PackageDescription
 
 let package = Package(
-    name: "CrewmateCore",
+    name: "InfinityCore",
     platforms: [
         .iOS(.v16),
         .macOS(.v13),
         .tvOS(.v12),
     ],
     products: [
-        .library(name: "CrewmateCore", targets: ["CrewmateCore"]),
-        .library(name: "CrewmateCoreData", targets: ["CrewmateCoreData"]),
-        .library(name: "CrewmateCoreUI", targets: ["CrewmateCoreUI"]),
+        .library(name: "InfinityCore", targets: ["InfinityCore"]),
+        .library(name: "InfinityCoreData", targets: ["InfinityCoreData"]),
+        .library(name: "InfinityCoreUI", targets: ["InfinityCoreUI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/attaswift/BigInt.git", from: "5.7.0")
     ],
     targets: [
         .target(
-            name: "CrewmateCore",
+            name: "InfinityCore",
             dependencies: [
                 .product(name: "BigInt", package: "BigInt"),
             ]
         ),
-        .target(name: "CrewmateCoreData", dependencies: ["CrewmateCore"]),
-        .target(name: "CrewmateCoreUI", dependencies: ["CrewmateCore"]),
-        .testTarget(name: "CrewmateCoreTests", dependencies: ["CrewmateCore"]),
-        .testTarget(name: "CrewmateCoreUITests", dependencies: ["CrewmateCoreUI"]),
+        .target(name: "InfinityCoreData", dependencies: ["InfinityCore"]),
+        .target(name: "InfinityCoreUI", dependencies: ["InfinityCore"]),
+        .testTarget(name: "InfinityCoreTests", dependencies: ["InfinityCore"]),
+        .testTarget(name: "InfinityCoreUITests", dependencies: ["InfinityCoreUI"]),
     ]
 )
