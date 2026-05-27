@@ -140,6 +140,128 @@ struct ArrayTests {
     }
     
     
+    //---------------------------------
+    // MARK: Array.removeFirst(while:)
+    //---------------------------------
+    
+    @Test("removeFirst(while:) removes matching leading elements") func testRemoveFirstWhileRemovesLeading() {
+        
+        var array = [1, 2, 3, 4, 5]
+        array.removeFirst(while: { $0 < 3 })
+        
+        #expect(array == [3, 4, 5])
+    }
+    
+    @Test("removeFirst(while:) stops at first non-matching element") func testRemoveFirstWhileStopsAtFirstNonMatch() {
+        
+        var array = [2, 4, 1, 6, 8]
+        array.removeFirst(while: { $0.isMultiple(of: 2) })
+        
+        #expect(array == [1, 6, 8])
+    }
+    
+    @Test("removeFirst(while:) removes nothing when first element does not match") func testRemoveFirstWhileNoMatch() {
+        
+        var array = [5, 1, 2, 3]
+        array.removeFirst(while: { $0 < 5 })
+        
+        #expect(array == [5, 1, 2, 3])
+    }
+    
+    @Test("removeFirst(while:) removes all elements when all match") func testRemoveFirstWhileAllMatch() {
+        
+        var array = [1, 2, 3]
+        array.removeFirst(while: { $0 < 10 })
+        
+        #expect(array.isEmpty)
+    }
+    
+    @Test("removeFirst(while:) on empty array does nothing") func testRemoveFirstWhileEmpty() {
+        
+        var array: [Int] = []
+        array.removeFirst(while: { _ in true })
+        
+        #expect(array.isEmpty)
+    }
+    
+    @Test("removeFirst(while:) on single element matching") func testRemoveFirstWhileSingleMatch() {
+        
+        var array = [1]
+        array.removeFirst(while: { $0 == 1 })
+        
+        #expect(array.isEmpty)
+    }
+    
+    @Test("removeFirst(while:) on single element not matching") func testRemoveFirstWhileSingleNoMatch() {
+        
+        var array = [1]
+        array.removeFirst(while: { $0 == 2 })
+        
+        #expect(array == [1])
+    }
+    
+    
+    //----------------------------
+    // MARK: Array.chunked(into:)
+    //----------------------------
+    
+    @Test("chunked(into:) splits array evenly") func testChunkedEvenSplit() {
+        
+        let array = [1, 2, 3, 4, 5, 6]
+        let result = array.chunked(into: 2)
+        
+        #expect(result == [[1, 2], [3, 4], [5, 6]])
+    }
+    
+    @Test("chunked(into:) last chunk contains remainder") func testChunkedRemainder() {
+        
+        let array = [1, 2, 3, 4, 5]
+        let result = array.chunked(into: 2)
+        
+        #expect(result == [[1, 2], [3, 4], [5]])
+    }
+    
+    @Test("chunked(into:) with size equal to count returns single chunk") func testChunkedSizeEqualsCount() {
+        
+        let array = [1, 2, 3]
+        let result = array.chunked(into: 3)
+        
+        #expect(result == [[1, 2, 3]])
+    }
+    
+    @Test("chunked(into:) with size greater than count returns single chunk") func testChunkedSizeGreaterThanCount() {
+        
+        let array = [1, 2]
+        let result = array.chunked(into: 10)
+        
+        #expect(result == [[1, 2]])
+    }
+    
+    @Test("chunked(into:) with size of 1 returns individual elements") func testChunkedSizeOne() {
+        
+        let array = ["a", "b", "c"]
+        let result = array.chunked(into: 1)
+        
+        #expect(result == [["a"], ["b"], ["c"]])
+    }
+    
+    @Test("chunked(into:) on empty array returns empty") func testChunkedEmpty() {
+        
+        let array: [Int] = []
+        let result = array.chunked(into: 3)
+        
+        #expect(result.isEmpty)
+    }
+    
+    @Test("chunked(into:) on single element array") func testChunkedSingleElement() {
+        
+        let array = [42]
+        let result = array.chunked(into: 5)
+        
+        #expect(result == [[42]])
+    }
+    
+    
     //------------------------
     // MARK: Array.remove(_:)
     //------------------------

@@ -36,6 +36,26 @@ extension Array {
         let items = self[pickedIndexes]
         return preserveOrder ? items : items.shuffled()
     }
+    
+    /// Removes elements from the beginning of the array while the predicate returns `true`.
+    ///
+    /// - Parameter predicate: The predicate to evaluate for each element.
+    public mutating func removeFirst(while predicate: (Element) throws -> Bool) rethrows {
+        while try !isEmpty && predicate(first!) {
+            removeFirst()
+        }
+    }
+    
+    /// Splits the array into chunks of the given size.
+    ///
+    /// - Parameter size: The expected chunk size.
+    ///
+    /// - Returns: The splitted chunks.
+    public func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
+    }
 }
 
 extension Array where Element: Equatable {
