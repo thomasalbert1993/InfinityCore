@@ -108,6 +108,53 @@ struct SetTests {
         #expect(diff.removed == [User(id: 1)])
     }
     
+    
+    //----------------
+    // MARK: toggle()
+    //----------------
+    
+    @Test("toggle() inserts an element that is not in the set") func testToggleInserts() {
+        
+        var set: Set = [1, 2, 3]
+        set.toggle(4)
+        
+        #expect(set == [1, 2, 3, 4])
+    }
+    
+    @Test("toggle() removes an element that is already in the set") func testToggleRemoves() {
+        
+        var set: Set = [1, 2, 3]
+        set.toggle(2)
+        
+        #expect(set == [1, 3])
+    }
+    
+    @Test("toggle() twice restores the original set") func testToggleTwiceRestoresSet() {
+        
+        var set: Set = [1, 2, 3]
+        set.toggle(4)
+        set.toggle(4)
+        
+        #expect(set == [1, 2, 3])
+    }
+    
+    @Test("toggle() on an empty set inserts the element") func testToggleOnEmptySet() {
+        
+        var set: Set<Int> = []
+        set.toggle(1)
+        
+        #expect(set == [1])
+    }
+    
+    @Test("toggle() the only element empties the set") func testToggleOnlyElement() {
+        
+        var set: Set = [42]
+        set.toggle(42)
+        
+        #expect(set.isEmpty)
+    }
+    
+    
     @Test("Test difference partitions symmetricDifference") func testRelationToSymmetricDifference() {
         
         let previous: Set = [1, 2, 3]

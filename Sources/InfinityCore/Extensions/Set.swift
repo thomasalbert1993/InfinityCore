@@ -9,6 +9,17 @@ import Foundation
 
 extension Set {
     
+    /// Adds or removes an element into/from the set.
+    ///
+    /// - Parameter element: The element to add or to remove.
+    public mutating func toggle(_ element: Element) {
+        if contains(element) {
+            remove(element)
+        } else {
+            insert(element)
+        }
+    }
+    
     /// Returns the elements that were added to and removed from the receiver compared to a previous snapshot.
     ///
     /// This method compares `self` (the current set) to `previousValue` (an earlier set) and produces
