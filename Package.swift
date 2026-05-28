@@ -27,7 +27,7 @@ let package = Package(
             ]
         ),
         .target(name: "InfinityCoreData", dependencies: ["InfinityCore"]),
-        .target(name: "InfinityCorePDF", dependencies: ["InfinityCore"]),
+        .target(name: "InfinityCorePDF", dependencies: ["InfinityCore", "InfinityCoreUI"]),
         .target(name: "InfinityCoreUI", dependencies: ["InfinityCore"]),
         .testTarget(name: "InfinityCoreTests", dependencies: ["InfinityCore"]),
         .testTarget(name: "InfinityCoreUITests", dependencies: ["InfinityCoreUI"]),

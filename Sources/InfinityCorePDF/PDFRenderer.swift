@@ -198,10 +198,10 @@ public final class PDFRenderer {
                             renderer(page, nbPages, headerFrame).draw(at: headerFrame.origin, in: context.cgContext)
                         }
                 
-                    // 3) Draw blocks
+                // 3) Draw blocks
                 
-                    for positionedBlock in blocks {
-                        positionedBlock.block.draw(at: positionedBlock.origin, in: context.cgContext)
+                for positionedBlock in blocks {
+                    positionedBlock.block.draw(at: positionedBlock.origin, in: context.cgContext)
                 }
                 
                 // 4) Draw footer
@@ -218,8 +218,8 @@ public final class PDFRenderer {
                         }
                     
                     case .allPages(let height, let renderer):
-                            let footerFrame = layout.contentFrame.bottomRect(height: height)
-                            renderer(page, nbPages, footerFrame).draw(at: footerFrame.origin, in: context.cgContext)
+                        let footerFrame = layout.contentFrame.bottomRect(height: height)
+                        renderer(page, nbPages, footerFrame).draw(at: footerFrame.origin, in: context.cgContext)
                 }
             }
         }
